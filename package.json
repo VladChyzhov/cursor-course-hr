@@ -9,10 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@browserbasehq/stagehand": "^2.4.1",
+    "@ibm-cloud/watsonx-ai": "^1.6.8",
+    "@langchain/community": "^0.3.48",
+    "@langchain/core": "0.3.62",
     "@supabase/supabase-js": "^2.50.5",
+    "deepmerge": "^4.3.1",
+    "dotenv": "^16.4.5",
+    "ibm-cloud-sdk-core": "^5.4.0",
+    "langchain": "^0.3.29",
     "next": "15.3.5",
+    "openai": "^5.9.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "typescript": "5.8.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
