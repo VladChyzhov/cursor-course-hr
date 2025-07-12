@@ -3,9 +3,24 @@ import githubSummarizerChain from '../../../llm/githubSummarizerChain';
 import { supabase } from '../../../lib/supabaseClient';
 
 function parseGitHubUrl(url) {
+  url = url.replace(/\.git$/, ''); // удаляем .git
   const match = url.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)(?:\/|$)/i);
   if (!match) return null;
   return { owner: match[1], repo: match[2] };
+}
+
+async function fetchReadme(owner, repo) {
+  // Получаем список файлов в корне репозитория
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/`);
+  if (!res.ok) return null;
+  const files = await res.json();
+  // Ищем файл, начинающийся с README (без учёта регистра)
+  const readmeFile = files.find(f => /^readme/i.test(f.name));
+  if (!readmeFile) return null;
+  // Получаем содержимое README
+  const readmeRes = await fetch(readmeFile.download_url);
+  if (!readmeRes.ok) return null;
+  return await readmeRes.text();
 }
 
 export async function POST(req) {
