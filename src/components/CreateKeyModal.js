@@ -86,7 +86,7 @@ export default function CreateKeyModal({
             disabled={!newKeyLimitEnabled}
             className={`mt-2 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-900 text-base ${newKeyLimitEnabled ? 'border-gray-200 bg-white' : 'border-gray-100 bg-gray-50 text-gray-400'}`}
           />
-          <div className="text-xs text-gray-400 mt-1">* If the combined usage of all your keys exceeds your plan's limit, all requests will be rejected.</div>
+          <div className="text-xs text-gray-400 mt-1">* If the combined usage of all your keys exceeds your plan&apos;s limit, all requests will be rejected.</div>
         </div>
         
         <div className="flex justify-end gap-2 mt-6">
