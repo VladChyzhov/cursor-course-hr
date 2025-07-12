@@ -22,6 +22,7 @@ export default function PlaygroundPage() {
       const data = await res.json();
       if (res.ok && data.valid) {
         showToastMessage('valid api key, /protected can be accessed', 'success');
+        sessionStorage.setItem('apiKey', apiKey); // <--- обязательно!
         setTimeout(() => {
           router.push('/protected-area');
         }, 1200);

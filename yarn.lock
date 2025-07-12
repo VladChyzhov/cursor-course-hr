@@ -553,7 +553,7 @@
     uuid "^10.0.0"
     zod "^3.25.32"
 
-"@langchain/core@0.3.62":
+"@langchain/core@^0.3.62":
   version "0.3.62"
   resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.3.62.tgz#ddb4646c98800b6efacf89508c0dbc6991943ea4"
   integrity sha512-GqRTcoUPnozGRMUcA6QkP7LHL/OvanGdB51Jgb0w7IIPDI3wFugxMHZ4gphnGDtxsD1tQY5ykyEpYNxFK8kl1w==

@@ -12,7 +12,7 @@
     "@browserbasehq/stagehand": "^2.4.1",
     "@ibm-cloud/watsonx-ai": "^1.6.8",
     "@langchain/community": "^0.3.48",
-    "@langchain/core": "0.3.62",
+    "@langchain/core": "^0.3.62",
     "@supabase/supabase-js": "^2.50.5",
     "deepmerge": "^4.3.1",
     "dotenv": "^16.4.5",
