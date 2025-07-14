@@ -67,8 +67,14 @@ export default function ProtectedAreaPage() {
         return;
       }
       
-      if (!data || !data.summary) {
-        setError('Не удалось сгенерировать summary. Проверьте URL репозитория или попробуйте другой публичный репозиторий.');
+      if (!data ||
+        !data.purpose ||
+        !Array.isArray(data.features) ||
+        !Array.isArray(data.tech_stack) ||
+        !data.usage ||
+        !data.audience
+      ) {
+        setError('Не удалось сгенерировать резюме. Проверьте URL репозитория или попробуйте другой публичный репозиторий.');
       } else {
         setResult(data);
       }
@@ -142,14 +148,46 @@ export default function ProtectedAreaPage() {
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <h3 className="text-xl font-bold text-indigo-700 mb-4">Результат суммаризации</h3>
             <div className="mb-6">
-              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Краткое описание</h4>
-              <p className="text-gray-800 whitespace-pre-line leading-relaxed">{result.summary}</p>
+              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Назначение проекта</h4>
+              <p className="text-gray-800 whitespace-pre-line leading-relaxed">{result.purpose}</p>
+            </div>
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Ключевые возможности</h4>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1">
+                {result.features.map((feature, idx) => (
+                  <li key={idx} className="leading-relaxed">{feature}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Технологический стек</h4>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1">
+                {result.tech_stack.map((tech, idx) => (
+                  <li key={idx} className="leading-relaxed">{tech}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Инструкция по использованию</h4>
+              <p className="text-gray-800 whitespace-pre-line leading-relaxed">{result.usage}</p>
+            </div>
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Целевая аудитория</h4>
+              <p className="text-gray-800 whitespace-pre-line leading-relaxed">{result.audience}</p>
+            </div>
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Преимущества</h4>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1">
+                {result.strengths.map((item, idx) => (
+                  <li key={idx} className="leading-relaxed">{item}</li>
+                ))}
+              </ul>
             </div>
             <div>
-              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Интересные факты</h4>
+              <h4 className="text-lg font-semibold text-indigo-600 mb-2">Ограничения</h4>
               <ul className="list-disc pl-6 text-gray-700 space-y-1">
-                {result.cool_facts.map((fact, idx) => (
-                  <li key={idx} className="leading-relaxed">{fact}</li>
+                {result.limitations.map((item, idx) => (
+                  <li key={idx} className="leading-relaxed">{item}</li>
                 ))}
               </ul>
             </div>

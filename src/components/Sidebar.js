@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
+import Image from 'next/image';
 
 const navItems = [
   { label: 'Overview', icon: (
@@ -29,6 +31,11 @@ const navItems = [
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const { data: session } = useSession();
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" });
+  };
 
   return (
     <aside
@@ -72,9 +79,52 @@ export default function Sidebar() {
         ))}
       </nav>
       {/* Profile */}
-      <div className="mt-auto px-4 py-4 flex items-center gap-3 border-t border-gray-100">
-        <span className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-lg font-bold text-indigo-700">B</span>
-        <span className={`transition-all duration-200 text-gray-700 font-semibold ${collapsed ? 'opacity-0 w-0' : 'opacity-100 w-auto'}`}>Personal</span>
+      <div className="mt-auto px-4 py-4 border-t border-gray-100">
+        {session?.user ? (
+          <div className="flex items-center gap-3">
+            {session.user.image ? (
+              <Image
+                src={session.user.image}
+                alt="Profile"
+                width={36}
+                height={36}
+                className="rounded-full"
+              />
+            ) : (
+              <span className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-lg font-bold text-indigo-700">
+                {session.user.name?.charAt(0) || 'U'}
+              </span>
+            )}
+            <div className={`transition-all duration-200 ${collapsed ? 'opacity-0 w-0' : 'opacity-100 w-auto'}`}>
+              <div className="text-sm font-semibold text-gray-700 truncate">
+                {session.user.name || 'Пользователь'}
+              </div>
+              <div className="text-xs text-gray-500 truncate">
+                {session.user.email}
+              </div>
+            </div>
+            {!collapsed && (
+              <button
+                onClick={handleSignOut}
+                className="ml-auto p-1 rounded hover:bg-gray-100 transition"
+                title="Выйти"
+              >
+                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <span className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-lg font-bold text-gray-500">
+              ?
+            </span>
+            <span className={`transition-all duration-200 text-gray-500 ${collapsed ? 'opacity-0 w-0' : 'opacity-100 w-auto'}`}>
+              Не авторизован
+            </span>
+          </div>
+        )}
       </div>
     </aside>
   );

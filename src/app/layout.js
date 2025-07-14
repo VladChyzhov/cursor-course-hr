@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "../components/Sidebar";
 import { usePathname } from "next/navigation";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,10 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {!isHome && <Sidebar />}
-        <main className={isHome ? "" : "pl-20 md:pl-64 transition-all duration-200"}>
-          {children}
-        </main>
+        <Providers>
+          {!isHome && <Sidebar />}
+          <main className={isHome ? "" : "pl-20 md:pl-64 transition-all duration-200"}>
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

@@ -9,15 +9,36 @@ console.log('OPENAI_API_KEY (for debug):', process.env.OPENAI_API_KEY_LOCAL);
 
 // 1. Схема для валидации результата
 const outputSchema = z.object({
-  summary: z.string(),
-  cool_facts: z.array(z.string())
+  purpose: z.string(),           // Назначение проекта
+  features: z.array(z.string()), // Ключевые возможности
+  tech_stack: z.array(z.string()), // Технологический стек
+  usage: z.string(),             // Инструкция по использованию
+  audience: z.string(),          // Целевая аудитория
+  strengths: z.array(z.string()), // Преимущества
+  limitations: z.array(z.string()), // Ограничения
 });
 
 const parser = StructuredOutputParser.fromZodSchema(outputSchema);
 
 // 2. Промпт
 const prompt = PromptTemplate.fromTemplate(
-  `Summarize this GitHub repository based on the README content provided below.\n\nREADME:\n{readmeContent}\n\n{format_instructions}`
+  `Проанализируй следующий README-файл GitHub-репозитория и составь краткое, структурированное резюме на русском языке.
+
+В резюме укажи:
+
+- Назначение проекта: что делает репозиторий и какую проблему решает?
+- Ключевые возможности: основные функции или компоненты.
+- Технологический стек: какие технологии, фреймворки или инструменты используются.
+- Инструкция по использованию: как установить, настроить и запустить проект.
+- Целевая аудитория: для кого предназначен проект (разработчики, исследователи, бизнес и т.д.).
+- Преимущества и ограничения: сильные стороны или возможные недостатки, если они упомянуты.
+
+Пожалуйста, оформи ответ чётко и профессионально, используй маркированные списки или короткие абзацы для удобства чтения.
+
+README:
+{readmeContent}
+
+{format_instructions}`
 );
 
 // 3. LLM
