@@ -16,18 +16,6 @@ export function useAuth() {
     signOut({ callbackUrl });
   };
 
-  const requireAuth = (redirectTo = "/") => {
-    useEffect(() => {
-      if (status === "loading") return;
-      
-      if (!session) {
-        router.push(redirectTo);
-      }
-    }, [session, status, router, redirectTo]);
-
-    return { session, status, isAuthenticated: !!session };
-  };
-
   return {
     session,
     status,
@@ -35,6 +23,20 @@ export function useAuth() {
     isLoading: status === "loading",
     login,
     logout,
-    requireAuth,
   };
+}
+
+// Новый отдельный хук для обязательной аутентификации
+export function useRequireAuth(redirectTo = "/") {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "loading") return;
+    if (!session) {
+      router.push(redirectTo);
+    }
+  }, [session, status, router, redirectTo]);
+
+  return { session, status, isAuthenticated: !!session };
 } 

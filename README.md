@@ -34,3 +34,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Регистрация пользователей через Google
+
+- Все пользователи, которые проходят аутентификацию через Google, автоматически сохраняются в Supabase (таблица `users`).
+- Для каждого пользователя сохраняется email, имя, аватар, способ регистрации, дата регистрации и последний вход.
+
+## Админ-страница пользователей
+
+- Доступна по адресу `/admin/users` (только для авторизованных пользователей).
+- На странице отображаются все зарегистрированные пользователи с их данными.

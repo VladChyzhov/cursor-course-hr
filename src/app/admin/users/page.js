@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../../lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function UsersAdminPage() {
   const [users, setUsers] = useState([]);
@@ -53,7 +54,13 @@ export default function UsersAdminPage() {
                   <tr key={user.id} className="border-t">
                     <td className="px-4 py-2">
                       {user.image ? (
-                        <img src={user.image} alt={user.name || user.email} className="w-10 h-10 rounded-full" />
+                        <Image
+                          src={user.image}
+                          alt={user.name || user.email}
+                          width={40}
+                          height={40}
+                          className="w-10 h-10 rounded-full"
+                        />
                       ) : (
                         <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-700">
                           {user.name ? user.name.charAt(0) : "U"}
